@@ -15,7 +15,7 @@ CKEDITOR.dialog.add( 'customcolorDialog', function( editor ) {
                             //console.log( CKEDITOR.config.customcolor );
                             if ( CKEDITOR.config.customcolor ) {
                                 this.setValue( CKEDITOR.config.customcolor );
-                                console.log(this.getElement());
+                                //console.log(this.getElement());
                                 this.getInputElement().setAttribute( 'style', 'color: ' + CKEDITOR.config.customcolor + ';' );
                             }
                         }
@@ -59,7 +59,16 @@ CKEDITOR.dialog.add( 'customcolorDialog', function( editor ) {
                     var range = editor.createRange();
                     
                     range.moveToPosition( range.root, CKEDITOR.POSITION_BEFORE_START );
-                    currentFirstNode = range.startContainer.getChildren().getItem( 0 ).getChildren().getItem( 0 );
+
+                    if ( editor.plugins.divarea ) {
+                        currentFirstNode = range.startContainer.getChildren().getItem( 0 ).getChildren().getItem( 0 );
+                    }
+
+                    else {
+                        /* When using iframe editor, you need to insert in the second (body) node, not the head node of the iframe */
+                        currentFirstNode = range.startContainer.getChildren().getItem( 1 ).getChildren().getItem( 0 );
+                    }
+                    
                     
                     //editor.getSelection().selectRanges( [ range ] );
                     
