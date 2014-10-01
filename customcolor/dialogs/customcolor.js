@@ -26,6 +26,7 @@ CKEDITOR.dialog.add( 'customcolorDialog', function( editor ) {
         onOk: function() {
             var dialog = this;
             var oldStyleBlock = editor.document.findOne( 'style.customcolor' );
+            var colorRule = '';
             var newColor = dialog.getValueOf( 'info', 'color' );
 
             if ( !newColor ) {
@@ -40,7 +41,17 @@ CKEDITOR.dialog.add( 'customcolorDialog', function( editor ) {
             }
             else {
                 CKEDITOR.config.customcolor = newColor;
-                var colorRule = ' .article-detail aside.inlay .sb-hed, .article-detail aside.inlay h3, .article-detail aside.inlay .sb-list-subhead, .article-detail .listicle li h3, .article-detail .listicle li .listicle-item-hed { ' +
+
+                var ruleSet = editor.config.customcolor_ruleSet;
+
+                for(var i=0;i<ruleSet.length;i++) {
+                    colorRule += ruleSet[i].selector + ' { ' +
+                        ruleSet[i].property + ': ' + newColor + '; ' +
+                    '} ';
+                }
+
+                /*
+                var colorRule = '.article-detail aside.inlay .sb-hed, .article-detail aside.inlay h3, .article-detail aside.inlay .sb-list-subhead, .article-detail .listicle li h3, .article-detail .listicle li .listicle-item-hed { ' +
                                 'color: ' +
                                 newColor +'; ' +
                             '} ' +
@@ -48,6 +59,7 @@ CKEDITOR.dialog.add( 'customcolorDialog', function( editor ) {
                                 'border-color: ' +
                                 newColor +'; ' +
                             '} ';
+                            */
 
                 if ( oldStyleBlock ) {
                     //console.log('color already set; resetting now!');
