@@ -46,8 +46,14 @@ CKEDITOR.dialog.add( 'customcolorDialog', function( editor ) {
 
                 for(var i=0;i<ruleSet.length;i++) {
                     colorRule += ruleSet[i].selector + ' { ' +
-                        ruleSet[i].property + ': ' + newColor + '; ' +
-                    '} ';
+                        ruleSet[i].property + ': ' + newColor;
+
+                    if ( ruleSet[i].important ) {
+                        colorRule += '!important; } ';
+                    }
+                    else {
+                        colorRule += '; } ';
+                    }
                 }
 
                 /*

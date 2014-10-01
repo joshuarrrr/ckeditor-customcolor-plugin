@@ -25,5 +25,20 @@ CKEDITOR.config.customcolor_ruleSet = [
     {
         selector: '.article-detail aside.inlay',
         property: 'border-color'
-    }
+    },
+    {
+        selector: '.custom-colorize',
+        property: 'color',
+        important: true
+    },
+    {
+        selector: '.custom-colorize-bg',
+        property: 'background-color',
+        important: true
+    },
+    {
+        selector: '.custom-colorize-border',
+        property: 'border-color',
+        important: true
+    },
 ];
